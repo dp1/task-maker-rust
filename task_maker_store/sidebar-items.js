@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":["FileStore","FileStoreHandle","FileStoreKey","ReadFileIterator"]};

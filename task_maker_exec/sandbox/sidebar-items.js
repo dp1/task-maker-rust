@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["READABLE_DIRS"],"enum":["RawSandboxResult","SandboxResult"],"struct":["Sandbox"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ExecutorClientMessage","ExecutorServerMessage","WorkerClientMessage","WorkerServerMessage"],"struct":["ChannelFileIterator","ChannelFileSender"]};

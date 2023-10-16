@@ -1,0 +1,205 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The `italian_yaml` format is defined by `cms` and it’s the most used format in the Italian Olympiads."><title>task_maker_format::ioi::italian_yaml - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-cb6f1f67f1bcd037.css" id="mainThemeStyle"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="task_maker_format" data-themes="" data-resource-suffix="" data-rustdoc-version="1.73.0 (cc66ad468 2023-10-03)" data-channel="1.73.0" data-search-js="search-6dfdfced5eff6596.js" data-settings-js="settings-de11bff964e9d4e5.js" data-settings-css="settings-8c76f75bfb6bd192.css" data-theme-light-css="light-1596385f77d47ef2.css" data-theme-dark-css="dark-0a43001d3fc2282c.css" data-theme-ayu-css="ayu-fd19013d6ce078bf.css" ><script src="../../../static.files/storage-db41da1a38ea3cb8.js"></script><script defer src="../../../static.files/main-0795b7d26be81095.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-1596385f77d47ef2.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-0a43001d3fc2282c.css"><link rel="stylesheet" href="../../../static.files/noscript-cffde32267a19fd6.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="logo-container" href="../../../task_maker_format/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2></h2></nav><nav class="sidebar"><a class="logo-container" href="../../../task_maker_format/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><h2 class="location"><a href="#">Module italian_yaml</a></h2><div class="sidebar-elems"><section><ul class="block"><li><a href="#constants">Constants</a></li><li><a href="#functions">Functions</a></li></ul></section></div></nav><main><div class="width-limiter"><nav class="sub"><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="main-heading"><h1>Module <a href="../../index.html">task_maker_format</a>::<wbr><a href="../index.html">ioi</a>::<wbr><a class="mod" href="#">italian_yaml</a><button id="copy-path" title="Copy item path to clipboard"><img src="../../../static.files/clipboard-7571035ce49a181d.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="src" href="../../../src/task_maker_format/ioi/format/italian_yaml/mod.rs.html#1-771">source</a> · <button id="toggle-all-docs" title="collapse all docs">[<span>&#x2212;</span>]</button></span></div><details class="toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>The <code>italian_yaml</code> format is defined by <a href="https://cms.readthedocs.io/en/v1.4/External%20contest%20formats.html#italian-import-format"><code>cms</code></a>
+and it’s the most used format in the Italian Olympiads.</p>
+<h2 id="gengen-format"><a href="#gengen-format"><code>gen/GEN</code> format</a></h2>
+<p>Here it’s provided the definition of the format of the <code>gen/GEN</code> file, as interpreted by
+task-maker. The aim is to be as compatible as possible to the format accepted by <code>cmsMake</code> and
+<code>cmsImportTask</code>.</p>
+<p>The <code>gen/GEN</code> file describes how the input files of the testcases should be generated and how
+the subtasks are composed. The formal definition of the format can be found looking at the
+<a href="https://github.com/edomora97/task-maker-rust/blob/master/task-maker-format/src/ioi/format/italian_yaml/GEN.pest">parsing grammar</a>.
+The format is described here informally.</p>
+<p>Each line of that file can be of one of the following types:</p>
+<ul>
+<li>if the line starts with <code># </code> (number sign followed by a space) it is a comment and will be
+ignored. Example: <code># this is a comment</code></li>
+<li>if the line starts with <code>#ST:</code> it is the marker of the start of a new subtask. Following the
+column there is the score of the subtask, an integer number. Example: <code>#ST: 20</code>, meaning that
+all the following testcases, before the next <code>#ST:</code> are grouped in a single subtask worth 20
+points.</li>
+<li>if the line starts with <code>#COPY:</code> it is a testcase with a static input file, meaning that the
+input file will be simply copied from the path specified after the column. Example:
+<code>#COPY: gen/hardcoded.in</code>. The path is relative to the task root directory and the file must
+exists and be readable from task-maker. The path should not contain spaces.</li>
+<li>non-empty lines not starting with <code>#</code> defines a new testcases each. Each line contains
+command line arguments to pass to the generator executable. The generator should be named
+<code>gen/generator.*</code> or <code>gen/generatore.*</code>. Example: <code>1 2 3</code>, the generator will be invoked
+passing the three arguments.</li>
+</ul>
+<p>If a line contains a <code>#</code>, all the characters following it (<code>#</code> included) will be ignored as they
+are considered comments. Example: <code>1 2 3 # inline comment</code>.</p>
+<p>If no <code>#ST</code> lines are present, a single subtask worth 100 points is automatically added.</p>
+<h3 id="full-example-of-gengen"><a href="#full-example-of-gengen">Full example of <code>gen/GEN</code></a></h3><div class="example-wrap"><pre class="language-text"><code># N     M       seed
+#ST: 0
+#COPY: gen/example1.txt
+#COPY: gen/example2.txt
+
+#ST: 30
+10      1000    101
+20      1000    102
+1       1       103 # corner case!
+
+#ST: 70
+1000    10000   201
+2000    10000   202
+</code></pre></div>
+<p>In this example the first line is ignored since it’s a comment, then the definition of a subtask
+of zero points starts. The content of that subtask are 2 hardcoded input files, for example the
+sample cases in the text statement.</p>
+<p>Then a new subtask of 30 points starts, it’s composed of 3 testcases. Note that the comment on
+the third will be ignored and just the 3 numbers will be passed to the generator.</p>
+<p>Then there is a third subtask with 2 testcases.</p>
+<h2 id="gencasesgen-format"><a href="#gencasesgen-format"><code>gen/cases.gen</code> format</a></h2>
+<p>The <code>gen/GEN</code> format is pretty limited regarding some important aspects of task preparation. For
+example it allows you to use just a single generator and a single validator. A new format, not
+yet officially supported by <code>cms</code> (but workaround exists!), is here described.</p>
+<p>The formal definition of the format can be found in the
+<a href="https://github.com/edomora97/task-maker-rust/blob/master/task-maker-format/src/ioi/format/italian_yaml/cases.gen.pest">parsing grammar</a>.
+An informal explanation is here provided.</p>
+<p>Similarly to <code>gen/GEN</code>, each line is independent and can be one of the following:</p>
+<ul>
+<li>if it starts with <code>#</code> it is a comment and will be ignored.</li>
+<li>if it starts with <code>:</code> it is a command and what follows is described below.</li>
+<li>otherwise if it does not start with <code>#</code> nor <code>:</code>, it’s a simple testcase definition. The
+testcases will be generated using the <em>current generator</em>, which is either the default one or
+the overridden one in the current subtask.</li>
+</ul>
+<p>If a line contains a <code>#</code>, all the characters following it (<code>#</code> included) will be ignored as they
+are considered comments. Example: <code>1 2 3 # inline comment</code>.</p>
+<h3 id="backwards-compatibility-with-cms"><a href="#backwards-compatibility-with-cms">Backwards compatibility with cms</a></h3>
+<p>Since the importers of cms do not yet support the <code>cases.gen</code> format, there is a workaround that
+works as follows: when the task is built task-maker will create a <em>fake</em> <code>gen/GEN</code> with just the
+metadata needed by <code>cmsImportTask</code> (like the number of testcases and subtasks).</p>
+<p>This file also contains some comments that may be found useful for debugging the generations.</p>
+<p>That file will be ignore by task-maker if the <code>cases.gen</code> file is present and will be removed
+with <code>--clean</code>. Note that you should not edit that file because it will be overwritten the next
+time task-maker will be launched. To keep that file you should remove the comment containing
+<code>tm-allow-delete</code>.</p>
+<h3 id="casesgen-commands"><a href="#casesgen-commands"><code>cases.gen</code> commands</a></h3>
+<p>The lines starting with a column <code>:</code> are commands. What follows the column is the actual command
+which can be of many types.</p>
+<h4 id="-gen-name-path-args"><a href="#-gen-name-path-args"><code>: GEN name path [args...]</code></a></h4>
+<p>This command registers a new generator for the task. The generator is referenced in the file
+with the specified <code>name</code>, a unique string without spaces. That generator’s source file will be
+found at the specified <code>path</code>. The optional following <code>args...</code> define the command line
+arguments of this generator, they will be used for validating the constraints (see below).</p>
+<p>If the name is <code>default</code> the generator will be considered the default one and will be used when
+no specific generator is selected.</p>
+<p>Example: <code>: GEN default gen/generator.py N M seed</code> defines the <em>default</em> generator for the task,
+whose source file is at <code>gen/generator.py</code> (relative to the task’s root directory) and will
+accept 3 arguments named <code>N</code>, <code>M</code> and <code>seed</code>. When this generator will be used the variables
+<code>$N</code>, <code>$M</code> and <code>$seed</code> will be set and available for the constraint evaluation.</p>
+<p>Example: <code>: GEN line gen/line.py</code> defines a new generator named <code>line</code> whose parameters are not
+known and won’t be validated.</p>
+<h4 id="-val-name-path-args"><a href="#-val-name-path-args"><code>: VAL name path [args...]</code></a></h4>
+<p>This command registers a new validator for the task. The semantics of the command are the same
+of <code>: GEN name path [args...]</code>, including the behaviour of the <code>default</code> name.</p>
+<p>If no arguments are specified for the validator the default behaviour is to pass the variables
+<code>$INPUT</code> and <code>$ST_NUM</code> (similar to <code>gen/GEN</code>, but the subtask is 0-based).</p>
+<p>Note that, differently than <code>: GEN</code> the arguments of the validator do not define new variables,
+instead defines which parameters task-maker will pass to the validator. Because of that the
+variables should be prefixed with <code>$</code> (the variables are used, not declared).</p>
+<p>Note that the <code>name</code> must be unique among the validators, but it can be the same of the one of
+a generator.</p>
+<p>Example: <code>: VAL default gen/validator.py</code> defines the <em>default</em> validator for the task.</p>
+<p>Example: <code>: VAL line gen/val_line.py $INPUT $ST_NUM</code> defines the <code>line</code> validator which takes 2
+arguments, the same as the default behaviour, but using the variables to specify them.</p>
+<h4 id="-gen-name"><a href="#-gen-name"><code>: GEN name</code></a></h4>
+<p>This command overrides the default generator for the current subtask, meaning that all the
+testcases in the current subtask, following this command, will use the generator named <code>name</code> by
+default. A generator named <code>name</code> must have been previously defined.</p>
+<p>Example: <code>: GEN line</code> sets the current generator to <code>line</code>.</p>
+<h4 id="-val-name"><a href="#-val-name"><code>: VAL name</code></a></h4>
+<p>This command overrides the default validator for the current subtask, meaning that all the
+testcases in the current subtask, following this command, will use the validator named <code>name</code>.
+A validator named <code>name</code> must have been previously defined.</p>
+<p>Example: <code>: VAL line</code> sets the current validator to <code>line</code>.</p>
+<h4 id="-constraint-operand-operator-operand"><a href="#-constraint-operand-operator-operand"><code>: CONSTRAINT operand (operator operand)+</code></a></h4>
+<p>This command adds a constraint that validates the parameters of the testcases. The arguments of
+<code>: CONSTRAINT</code> form an expression that is an inequality (with equalities allowed) between
+constants and variables. When a testcase is defined using a generator with the arguments known,
+all those variables become defined and will be checked with all the constraints.</p>
+<p>The operators available are: &lt; &lt;= &gt; &gt;= =, but note that the inequalities must have the same
+direction (cannot mix &lt; and &gt;).</p>
+<p>Constraints defined before the first subtask will be used for all the subtasks. Constraints
+defined inside a subtask will be used only for that subtask.</p>
+<p>Example: <code>:CONSTRAINT 0 &lt;= $N &lt; $M &lt;= 1000000</code> will check that the variables <code>$N</code> and <code>$M</code> are
+between 0 and 1000000 and <code>$N</code> is smaller than <code>$M</code>.</p>
+<h4 id="-subtask-score-description"><a href="#-subtask-score-description"><code>: SUBTASK score [description]</code></a></h4>
+<p>This command marks the start of a new subtask, just like how <code>#ST</code> in <code>gen/GEN</code> did. The score
+can be a simple floating point number (either an integer or an integer.integer). The description
+that follows is optional and will be included in the subtask metadata.</p>
+<p>When a new subtask is started the generator and validator will be reset to the default ones.</p>
+<p>Example: <code>: SUBTASK 40 All the nodes are in a line</code> defines a new subtask worth 40 points, with
+the provided description.</p>
+<h4 id="-copy-path"><a href="#-copy-path"><code>: COPY path</code></a></h4>
+<p>This command creates a new testcase coping the input file from the specified path, relative to
+the task root directory. The file will be validated using the current validator of the subtask.</p>
+<p>Example: <code>: COPY gen/hardcoded.in</code></p>
+<h4 id="-run-name-args"><a href="#-run-name-args"><code>: RUN name args...</code></a></h4>
+<p>This command creates a new testcase using the generator named <code>name</code>, passing to it the
+following arguments. The generator must have been previously defined.</p>
+<p>If the generator has the definition of its parameters, they will be used for assigning the
+variables for checking the constraints. All the constraints must be satisfied for each testcase.</p>
+<p>The arguments provided are parsed with a shell lexer, meaning that <code>&quot;</code> and <code>'</code> have a semantic
+value (the same as a shell). Unlike <code>gen/GEN</code> you can pass arguments with a space in it using
+the quotes.</p>
+<p>Example: <code>: RUN line 1 2 3</code> will run the <code>line</code> generator passing the three integers as
+arguments.</p>
+<h3 id="testcase-definition"><a href="#testcase-definition">Testcase definition</a></h3>
+<p>Similarly to <code>gen/GEN</code> lines that are not commands nor comments are simple testcase definition.
+Their semantics is the same of <code>: RUN default args...</code>.</p>
+<h3 id="automatic-variables"><a href="#automatic-variables">Automatic variables</a></h3>
+<p>In the constraint evaluation and in the validator argument specification all the variables
+obtained from the parsing of the generator’s arguments will be available. Also some automatic
+variables will be available:</p>
+<ul>
+<li><code>$ST_NUM</code>: the 0-based index of the subtask</li>
+<li><code>$ST_DESCRIPTION</code>: the description of the subtask</li>
+<li><code>$TC_NUM</code>: the 0-based index of the testcase</li>
+<li><code>$INPUT</code> <em>(only for validators)</em>: the name of the file to validate</li>
+</ul>
+<h3 id="full-example-of-casesgen"><a href="#full-example-of-casesgen">Full example of <code>cases.gen</code></a></h3><div class="example-wrap"><pre class="language-text"><code>: GEN default gen/generator.py N M seed
+: GEN line gen/line.py N seed
+: GEN hard gen/hard.py
+
+: VAL default gen/validator.py
+: VAL line gen/val_line.py $INPUT $ST_NUM # same as default
+
+: CONSTRAINT 1 &lt;= $N &lt;= 1000
+: CONSTRAINT 1 &lt;= $M &lt;= 1000000
+
+: SUBTASK 0 Examples
+: COPY gen/example1.in
+: COPY gen/example2.in
+
+: SUBTASK 30 Nodes are in a line
+: GEN line
+: VAL line
+: CONSTRAINT $N &lt;= 500
+500   101
+500   102
+
+: SUBTASK 70
+1000   1000      201
+1000   1000000   202
+: RUN hard 1000 1000 95% 12.3 203
+</code></pre></div>
+<p>In this example 3 generators and 2 validators are defined, named <code>default</code>, <code>line</code>, <code>hard</code> and
+<code>default</code>, <code>line</code> respectively. The <code>default</code> and <code>line</code> generators have their parameters
+specified, they will be used for the constraints check; the <code>hard</code> generator arguments won’t be
+validated.</p>
+<p>Note that the second validator has the arguments specified, and they are the same as the default
+ones. Also note that the inline comment will be ignored.</p>
+<p>This file defines 3 subtasks, worth 0, 30 and 70 points each.</p>
+<p>The first subtask contains 2 testcases whose file will be simply copied from the specified
+paths.</p>
+<p>The second subtask has 2 testcases each generated with the <code>line</code> generator and validated with
+the <code>line</code> validator. Note that there is an additional constraint for the subtask, it will be
+checked only in this subtask.</p>
+<p>The third subtask will use the <code>default</code> generator and validator, except for the last testcase
+which will use the <code>hard</code> one. Note that since the <code>hard</code> generator does not have the argument
+specification, its parameters won’t be checked. Also note that the constraint <code>$N &lt;= 500</code> won’t
+be checked because it was scoped only to the second subtask.
+The subtask also does not have a description, the default one (<code>Subtask 2</code>) will be used.</p>
+</div></details><h2 id="constants" class="small-section-header"><a href="#constants">Constants</a></h2><ul class="item-table"><li><div class="item-name"><a class="constant" href="constant.VALID_SUBTASK_NAME_CHARACTER_CATEGORIES.html" title="constant task_maker_format::ioi::italian_yaml::VALID_SUBTASK_NAME_CHARACTER_CATEGORIES">VALID_SUBTASK_NAME_CHARACTER_CATEGORIES</a></div><div class="desc docblock-short">The set of valid Unicode General Categories for the characters composing a subtask name.</div></li></ul><h2 id="functions" class="small-section-header"><a href="#functions">Functions</a></h2><ul class="item-table"><li><div class="item-name"><a class="fn" href="fn.parse_task.html" title="fn task_maker_format::ioi::italian_yaml::parse_task">parse_task</a></div><div class="desc docblock-short">Given the path to the task directory, try to parse the task inside of it assuming the format is
+<code>italian_yaml</code>.</div></li></ul></section></div></main></body></html>
